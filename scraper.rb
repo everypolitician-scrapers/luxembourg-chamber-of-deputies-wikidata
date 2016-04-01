@@ -3,5 +3,11 @@
 
 require 'wikidata/fetcher'
 
-names = EveryPolitician::Wikidata.morph_wikinames(source: 'tmtmtmtm/luxembourg-chamber-of-deputies-wikipedia', column: 'wikipedia__lb')
+names = EveryPolitician::Wikidata.wikipedia_xpath( 
+  url: 'https://lb.wikipedia.org/wiki/Chamber',
+  after: '//h3[contains(.,"Aktuell Period")]',
+  before: '//h3[contains(.,"Period 2009-2013")]',
+  xpath: '//li//a[not(@class="new")]/@title',
+) 
+
 EveryPolitician::Wikidata.scrape_wikidata(names: { lb: names })
